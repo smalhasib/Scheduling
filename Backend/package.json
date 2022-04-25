@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Database project, here using Nodejs and MySQL.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hasib718/Scheduling.git"
+  },
+  "author": "Md Hasibul Islam & S M Al Hasib",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hasib718/Scheduling/issues"
+  },
+  "homepage": "https://github.com/Hasib718/Scheduling#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15"
+  }
+}
