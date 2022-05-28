@@ -1,27 +1,28 @@
-import { Box } from "@mui/material"
-import { useState } from "react"
-import Header from "../components/Dashboard/Header/Header"
-import Home from "../components/Dashboard/Home/Home"
-import Sidebar from "../components/Dashboard/Sidebar/Sidebar"
-
+import { Box } from "@mui/material";
+import { useState } from "react";
+import Header from "../components/Dashboard/Header/Header";
+import Home from "../components/Dashboard/Home/Home";
+import Managers from "../components/Dashboard/Managers/Managers";
+import Sidebar from "../components/Dashboard/Sidebar/Sidebar";
 
 const Dashboard = () => {
-  const [show, setShow] = useState('home')
+  const [show, setShow] = useState("home");
   return (
     <>
       <Box
         sx={{
-          height:"auto",
+          height: "auto",
           width: "100%",
           bgcolor: "#F2F5F9",
         }}
       >
         <Header />
-        <Sidebar show={show} setShow={setShow}/>
-        {show==='home' && <Home/>}
+        <Sidebar show={show} setShow={setShow} />
+        {show === "home" && <Home />}
+        {show === "manager" && <Managers />}
       </Box>
     </>
   );
-}
+};
 
-export default Dashboard
+export default Dashboard;
