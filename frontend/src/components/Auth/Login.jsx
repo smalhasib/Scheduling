@@ -1,5 +1,5 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Button, TextField, Typography } from "@mui/material";
+import React from "react";
 
 const Login = () => {
   return (
@@ -10,7 +10,6 @@ const Login = () => {
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          //   alignItems: "center",
           bgcolor: "#F2F5F9",
         }}
       >
@@ -28,8 +27,13 @@ const Login = () => {
             top: "15%",
           }}
         >
-            <img src="/img/database_logo.png" alt="logo" />
-          <Typography variant="h6" sx={{fontWeight:"bold", marginTop:"1rem"}}>Login you account</Typography>
+          <img src="/img/database_logo.png" alt="logo" />
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", marginTop: "1rem" }}
+          >
+            Login you account
+          </Typography>
           <TextField
             label="Email"
             type="text"
@@ -52,6 +56,6 @@ const Login = () => {
       </Box>
     </>
   );
-}
+};
 
-export default Login
+export default Login;
