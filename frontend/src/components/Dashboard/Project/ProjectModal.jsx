@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Box, Button, Modal, TextField } from "@mui/material";
 
 const style = {
@@ -9,10 +9,11 @@ const style = {
   width: 400,
   bgcolor: "background.paper",
   boxShadow: 24,
-  borderRadius:"1rem",
+  borderRadius: "1rem",
   p: 4,
 };
-const ManagerModal = ({open, setOpen }) => {
+
+const ProjectModal = ({open, setOpen}) => {
   return (
     <>
       <Modal
@@ -49,14 +50,14 @@ const ManagerModal = ({open, setOpen }) => {
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               />
               <TextField
-                label="Email"
+                label="Summary"
                 type="text"
                 size="small"
                 variant="outlined"
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               />
               <TextField
-                label="Password"
+                label="Status"
                 type="password"
                 size="small"
                 variant="outlined"
@@ -84,4 +85,4 @@ const ManagerModal = ({open, setOpen }) => {
   );
 };
 
-export default ManagerModal
+export default ProjectModal;

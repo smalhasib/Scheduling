@@ -1,28 +1,25 @@
-import { useEffect, useRef, useState } from 'react'
-import {Link} from 'react-router-dom'
-const Navbar =() => {
-
-  const [state, setState] = useState(false)
-  const navRef = useRef()
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+const Navbar = () => {
+  const [state, setState] = useState(false);
+  const navRef = useRef();
 
   useEffect(() => {
-      
-      const body = document.body
+    const body = document.body;
 
-      // Disable scrolling
-      const customBodyStyle = ["overflow-hidden", "lg:overflow-visible"]
-      if (state) body.classList.add(...customBodyStyle)
-      // Enable scrolling
-      else body.classList.remove(...customBodyStyle)
+    // Disable scrolling
+    const customBodyStyle = ["overflow-hidden", "lg:overflow-visible"];
+    if (state) body.classList.add(...customBodyStyle);
+    // Enable scrolling
+    else body.classList.remove(...customBodyStyle);
 
-      // Sticky strick
-      const customStyle = ["sticky-nav", "fixed", "border-b"]
-      window.onscroll = () => {
-          if (window.scrollY > 80) navRef.current.classList.add(...customStyle)
-          else navRef.current.classList.remove(...customStyle)
-      }
-    }, [state])
-    
+    // Sticky strick
+    const customStyle = ["sticky-nav", "fixed", "border-b"];
+    window.onscroll = () => {
+      if (window.scrollY > 80) navRef.current.classList.add(...customStyle);
+      else navRef.current.classList.remove(...customStyle);
+    };
+  }, [state]);
 
   return (
     <nav ref={navRef} className="bg-white w-full top-0 z-20 sticky-nav">
@@ -94,7 +91,10 @@ const Navbar =() => {
               >
                 <Link to="/dashboard">Dashboard</Link>
               </li>
-              <li style={{ fontSize: "1.1rem" }} className=" font-bold mt-4 lg:mt-0">
+              <li
+                style={{ fontSize: "1.1rem" }}
+                className=" font-bold mt-4 lg:mt-0"
+              >
                 <Link
                   to="/login"
                   className="py-3 px-4 text-center border text-black hover:text-indigo-600 rounded-md block lg:inline lg:border-0"
@@ -116,5 +116,5 @@ const Navbar =() => {
       </div>
     </nav>
   );
-}
+};
 export default Navbar;
