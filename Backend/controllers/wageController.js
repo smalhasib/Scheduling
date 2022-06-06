@@ -1,5 +1,7 @@
 const database = require("../config/Database");
 const mysql = require("mysql");
+const { v4: uuidv4 } = require("uuid");
+
 const CreateWage = async (req, res) => {
   console.log(req.body);
   const { salary, bonus } = req.body;
@@ -7,7 +9,10 @@ const CreateWage = async (req, res) => {
     if (!salary || !bonus) {
       return res.status(400).json("Please fill all fields.");
     }
-    const sql = `INSERT INTO wage (salary, bonus) VALUES('${salary}', '${bonus}')`;
+    const sql = `INSERT INTO wage (WID, salary, bonus) VALUES('${uuidv4()
+      .toString()
+      .replace("-", "")
+      .substring(0, 8)}','${salary}', '${bonus}')`;
     database.query(sql, (err, result) => {
       if (err) {
         return console.log(err);

@@ -1,15 +1,20 @@
 const database = require("../config/Database");
 const mysql = require("mysql");
+const { v4: uuidv4 } = require("uuid");
 
 // add projects....
 const CreateProject = async (req, res) => {
+  console.log(req.body)
   const { name, summary, status } = req.body;
   try {
     if (!name || !summary || !status) {
       return res.status(400).json("Please fill all fields.");
     }
-    const sql = `INSERT INTO project (name, summary, status) VALUES('${name}', '${summary}', '${status}')`;
-    database.query(sql, (err, result) => {
+    const sql = `INSERT INTO project (PID,name, summary, status) VALUES('${uuidv4()
+      .toString()
+      .replace("-", "")
+      .substring(0, 8)}','${name}', '${summary}', '${status}')`;
+    await database.query(sql, (err, result) => {
       if (err) {
         return console.log(err);
       } else {

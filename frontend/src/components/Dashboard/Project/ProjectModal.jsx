@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Modal, TextField } from "@mui/material";
-
+import { CreateProject } from "../../../Api/Api";
 const style = {
   position: "absolute",
   top: "50%",
@@ -13,7 +13,22 @@ const style = {
   p: 4,
 };
 
-const ProjectModal = ({open, setOpen}) => {
+const ProjectModal = ({ open, setOpen }) => {
+  const [project, setProject] = useState({
+    name: "",
+    summary: "",
+    status: "",
+  });
+  const onValueChange = (e) => {
+    setProject({
+      ...project,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const AddProject = async () => {
+    const res = await CreateProject(project);
+    console.log(res);
+  };
   return (
     <>
       <Modal
@@ -47,6 +62,9 @@ const ProjectModal = ({open, setOpen}) => {
                 type="text"
                 size="small"
                 variant="outlined"
+                name="name"
+                value={project.name}
+                onChange={onValueChange}
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               />
               <TextField
@@ -54,17 +72,27 @@ const ProjectModal = ({open, setOpen}) => {
                 type="text"
                 size="small"
                 variant="outlined"
+                name="summary"
+                value={project.summary}
+                onChange={onValueChange}
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               />
               <TextField
                 label="Status"
-                type="password"
+                type="text"
                 size="small"
                 variant="outlined"
+                name="status"
+                value={project.status}
+                onChange={onValueChange}
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               />
               <Button
                 variant="contained"
+                onClick={() => {
+                  AddProject();
+                  setOpen(false);
+                }}
                 sx={{
                   width: "100%",
                   marginTop: "1rem",
