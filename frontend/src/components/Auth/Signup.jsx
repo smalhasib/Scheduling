@@ -1,9 +1,10 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
-
+import Navbar from "../Landingpage/Navbar";
 const Signup = () => {
   return (
     <>
+    <Navbar/>
       <Box
         sx={{
           height: "100vh",
@@ -16,15 +17,15 @@ const Signup = () => {
         <Box
           sx={{
             width: { xs: "90%", md: "30%" },
-            height: "auto",
+            height: "500px",
             boxShadow: "0 15px 25px rgba(0, 0, 0, 0.2)",
             borderRadius: "1rem",
             padding: "2rem",
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            position: "absolute",
-            top: "15%",
+            position: "relative",
+            top: "10%",
           }}
         >
           <img src="/img/database_logo.png" alt="logo" />
