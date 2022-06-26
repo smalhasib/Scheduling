@@ -47,8 +47,9 @@ const GetProject = async (req, res) => {
 // delete project....
 const DeleteProject = async (req, res) => {
   const pid = req.params.id;
+  console.log(pid)
   try {
-    const sql = `DELETE FROM project WHERE PID = ${pid}`;
+    const sql = `DELETE FROM project WHERE PID = '${pid}'`;
     database.query(sql, (err, result) => {
       if (err) {
         return console.log(err);

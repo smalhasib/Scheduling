@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { useEffect } from "react";
 import { useState } from "react";
 import Header from "../components/Dashboard/Header/Header";
 import Home from "../components/Dashboard/Home/Home";
@@ -7,7 +8,13 @@ import Project from "../components/Dashboard/Project/Project";
 import Sidebar from "../components/Dashboard/Sidebar/Sidebar";
 
 const Dashboard = () => {
-  const [show, setShow] = useState("home");
+  const [show, setShow] = useState(
+    localStorage.getItem('show')
+    ||"home");
+
+  useEffect(()=>{
+  localStorage.setItem("show",show);
+  },[show])
   return (
     <>
       <Box

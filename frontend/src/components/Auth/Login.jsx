@@ -1,11 +1,49 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React from "react";
-import Navbar from '../Landingpage/Navbar'
+import React, { useState } from "react";
+import Navbar from "../Landingpage/Navbar";
+import { LoginUsers } from "../../Api/Api";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const onValueChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const LoginUser = async () => {
+    try {
+      const res = await LoginUsers(user);
+      console.log(res.data)
+      if (res.status === 200) {
+         navigate("/dashboard");
+      } else {
+        throw Error();
+      }
+    } catch (error) {
+      toast.error("Invalid Credentials", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <Box
         sx={{
           height: "100vh",
@@ -41,6 +79,9 @@ const Login = () => {
             type="text"
             size="small"
             variant="outlined"
+            name="email"
+            value={user.email}
+            onChange={onValueChange}
             sx={{ width: "100%", marginTop: "1.5rem" }}
           />
           <TextField
@@ -48,14 +89,31 @@ const Login = () => {
             type="password"
             size="small"
             variant="outlined"
+            name="password"
+            value={user.password}
+            onChange={onValueChange}
             sx={{ width: "100%", marginTop: "1.5rem" }}
           />
-          <Button variant="contained" sx={{ width: "100%", marginTop: "2rem" }}>
+          <Button
+            onClick={LoginUser}
+            variant="contained"
+            sx={{ width: "100%", marginTop: "2rem" }}
+          >
             Login
           </Button>
-          <Box></Box>
         </Box>
       </Box>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

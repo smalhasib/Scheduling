@@ -25,7 +25,7 @@ const Navbar = () => {
     <nav ref={navRef} className="bg-white w-full top-0 z-20 sticky-nav">
       <div className="items-center px-4 max-w-screen-xl mx-auto lg:flex lg:px-8">
         <div className="flex items-center justify-between py-3 lg:py-4 lg:block">
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center mt-2">
             <img
               src="/img/database_logo.png"
               width={60}
@@ -78,7 +78,7 @@ const Navbar = () => {
           }`}
         >
           <div>
-            <ul className="flex flex-col p-3 space-x-0 lg:space-x-6 lg:flex-row">
+            <ul className="flex flex-col p-3 space-x-0 lg:space-x-20 lg:flex-row">
               <li
                 style={{ fontSize: "1.1rem" }}
                 className="text-black mr-2 font-bold hover:text-indigo-600"

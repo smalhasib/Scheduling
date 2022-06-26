@@ -1,13 +1,15 @@
 import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
+import PorjectLists from "./PorjectLists";
 import ProjectModal from "./ProjectModal";
 const Project = () => {
       const [open, setOpen] = useState(false);
+
   return (
     <>
       <Box
         sx={{
-          height: { xs: "auto", md: "100vh" },
+          height: { xs: "auto", md:"100vh"},
           width: "100%",
         }}
       >
@@ -27,6 +29,7 @@ const Project = () => {
         </Button>
       </Box>
       <ProjectModal open={open} setOpen={setOpen}/>
+      <PorjectLists/>
     </>
   );
 };

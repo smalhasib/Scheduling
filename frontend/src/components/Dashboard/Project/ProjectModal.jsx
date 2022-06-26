@@ -26,8 +26,8 @@ const ProjectModal = ({ open, setOpen }) => {
     });
   };
   const AddProject = async () => {
-    const res = await CreateProject(project);
-    console.log(res);
+    await CreateProject(project);
+    window.location.reload();
   };
   return (
     <>
