@@ -4,9 +4,9 @@ import { useState } from "react";
 import Navbar from "../Landingpage/Navbar";
 import { createAdmin } from "../../Api/Api";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const Signup = () => {
-
   const navigate = useNavigate();
   const [generateAdmin, setGenerateAdmin] = useState({});
 
@@ -18,12 +18,13 @@ const Signup = () => {
 
   // Generating admin email and password....
   const GenerateEmailPass = () => {
-    if(user.name.length > 0){
+    if (user.name.length > 0) {
       const first = user.name.split(" ")[0];
       const randomNum = Math.floor(Math.random() * 1000 + 10);
       const adminEmail = first.concat(randomNum + "@admin.com");
-      const genetatePassword = Math.floor(Math.random() * 100000 + 1000);
+      const genetatePassword = `${Math.floor(Math.random() * 100000 + 1000)}`;
       const adminUser = { adminEmail, genetatePassword };
+      console.log(adminUser);
       setGenerateAdmin(adminUser);
     }
   };
@@ -36,9 +37,35 @@ const Signup = () => {
   };
 
   const SignupUser = async () => {
-    const res = await createAdmin(user);
-    if (res.status === 200) {
-      navigate("/login");
+    try {
+      if (
+        user.email !== generateAdmin.adminEmail ||
+        user.password !== generateAdmin.genetatePassword
+      ) {
+        toast.error("Use our email and password.", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+      const res = await createAdmin(user);
+      if (res.status === 200) {
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error("Invalid credentials", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   return (
@@ -100,12 +127,12 @@ const Signup = () => {
           {Object.keys(generateAdmin).length > 0 && (
             <Box
               sx={{
-                bgcolor: "#eee",
                 width: "100%",
                 padding: ".5rem",
                 marginTop: "1.5rem",
                 fontSize: "1.1rem",
                 borderRadius: ".8rem",
+                boxShadow: "0px 3px 7px rgba(0,0,0,0.1)",
               }}
             >
               <p>Email : {generateAdmin.adminEmail}</p>
@@ -141,6 +168,17 @@ const Signup = () => {
           </Button>
         </Box>
       </Box>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

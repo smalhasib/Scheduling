@@ -25,3 +25,9 @@ export const LoginUsers = async (data) => {
   const res = await API.post("/admin/loginadmin", data);
   return res;
 };
+
+// Adding employee functions....
+export const createEmployee = async(data) =>{
+      const res = await API.post("/employee/signup", data);
+      return res;
+}
