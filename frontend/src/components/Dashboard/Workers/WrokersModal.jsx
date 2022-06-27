@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Modal, TextField } from "@mui/material";
-import { createManagers } from "../../../Api/Api";
+import { createWorkers } from "../../../Api/Api";
 import { ToastContainer, toast } from "react-toastify";
 
 const style = {
@@ -14,8 +14,8 @@ const style = {
   borderRadius: "1rem",
   p: 4,
 };
-const ManagerModal = ({ open, setOpen }) => {
-  const [generateManager, setGenerateManger] = useState({});
+const WrokersModal = ({ open, setOpen }) => {
+  const [generateWorker, setGenerateWorker] = useState({});
 
   const [user, setUser] = useState({
     name: "",
@@ -35,18 +35,19 @@ const ManagerModal = ({ open, setOpen }) => {
     if (user.name.length > 0) {
       const first = user.name.split(" ")[0];
       const randomNum = Math.floor(Math.random() * 1000 + 10);
-      const managerEmail = first.concat(randomNum + "@manager.com");
+      const workerEmail = first.concat(randomNum + "@worker.com");
       const genetatePassword = `${Math.floor(Math.random() * 100000 + 1000)}`;
-      const managerEmailPass = { managerEmail, genetatePassword };
-      setGenerateManger(managerEmailPass);
+      const workerEmailPass = { workerEmail, genetatePassword };
+      setGenerateWorker(workerEmailPass);
     }
   };
 
-  const addManager = async () => {
+  const addWorker = async () => {
+    console.log(user);
     try {
       if (
-        user.email !== generateManager.managerEmail ||
-        user.password !== generateManager.genetatePassword
+        user.email !== generateWorker.workerEmail ||
+        user.password !== generateWorker.genetatePassword
       ) {
         toast.error("Use our email and password.", {
           position: "top-center",
@@ -59,8 +60,10 @@ const ManagerModal = ({ open, setOpen }) => {
         });
         return;
       }
-      await createManagers(user);
-    } catch (error) {}
+      await createWorkers(user);
+    } catch (error) {
+      console.log(error);
+    }
     window.location.reload();
   };
   return (
@@ -114,9 +117,9 @@ const ManagerModal = ({ open, setOpen }) => {
                   },
                 }}
               >
-                Generate manager's Email and password.
+                Generate worker's Email and password.
               </Button>
-              {Object.keys(generateManager).length > 0 && (
+              {Object.keys(generateWorker).length > 0 && (
                 <Box
                   sx={{
                     // bgcolor: "#eee",
@@ -128,8 +131,8 @@ const ManagerModal = ({ open, setOpen }) => {
                     boxShadow: "0px 3px 7px rgba(0,0,0,0.1)",
                   }}
                 >
-                  <p>Email : {generateManager.managerEmail}</p>
-                  <p>Password : {generateManager.genetatePassword}</p>
+                  <p>Email : {generateWorker.workerEmail}</p>
+                  <p>Password : {generateWorker.genetatePassword}</p>
                 </Box>
               )}
               <TextField
@@ -153,7 +156,7 @@ const ManagerModal = ({ open, setOpen }) => {
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               />
               <Button
-                onClick={addManager}
+                onClick={addWorker}
                 variant="contained"
                 sx={{
                   width: "100%",
@@ -186,4 +189,4 @@ const ManagerModal = ({ open, setOpen }) => {
   );
 };
 
-export default ManagerModal;
+export default WrokersModal;

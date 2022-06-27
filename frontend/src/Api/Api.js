@@ -26,8 +26,22 @@ export const LoginUsers = async (data) => {
   return res;
 };
 
-// Adding employee functions....
-export const createEmployee = async(data) =>{
-      const res = await API.post("/employee/signup", data);
+// managers....
+export const createManagers = async(data) =>{
+      const res = await API.post("/employee/addmanager", data);
       return res;
 }
+export const getManagers = async () => {
+  const res = await API.get("/employee/allmanager");
+  return res;
+};
+
+//worker
+export const createWorkers = async (data) => {
+  const res = await API.post("/employee/addworker", data);
+  return res;
+};
+export const getWorkers = async () => {
+  const res = await API.get("/employee/allworker");
+  return res;
+};

@@ -13,8 +13,15 @@ import GroupIcon from "@mui/icons-material/Group";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WorkIcon from "@mui/icons-material/Work";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isDrawerOpen, show, setShow }) => {
+  const navigate = useNavigate();
+  const logOut = () => {
+    localStorage.removeItem("jwtoken", "userID", "userRole");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
   return (
     <>
       <List
@@ -130,7 +137,7 @@ const Sidebar = ({ isDrawerOpen, show, setShow }) => {
             <ListItemText primary="Profile" />
           </ListItemButton>
         </Box>
-        <Box className={`hover:bg-gray-500 hover:rounded-xl`}>
+        <Box onClick={logOut} className={`hover:bg-gray-500 hover:rounded-xl`}>
           <ListItemButton sx={{ marginTop: ".5rem" }}>
             <ListItemIcon>
               <LogoutIcon className="text-[#fff]" />

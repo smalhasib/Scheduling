@@ -1,12 +1,10 @@
 import { Box, Button } from "@mui/material";
-import React,{useState} from "react";
-import ManagerLists from "./ManagerLists";
-import ManagerModal from "./ManagerModal";
+import React, { useState } from "react";
+import WorkerLists from "./WorkerLists";
+import WrokersModal from "./WrokersModal";
 
-
-
-const Managers = () => {
-      const [open, setOpen] = useState(false);
+const Worker = () => {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Box
@@ -27,13 +25,13 @@ const Managers = () => {
           className="relative left-5 top-20 md:left-80 md:top-24"
           onClick={() => setOpen(true)}
         >
-          Add manager
+          Add worker
         </Button>
       </Box>
-      <ManagerModal setOpen={setOpen} open={open} />
-      <ManagerLists/>
+      <WrokersModal setOpen={setOpen} open={open} />
+      <WorkerLists/>
     </>
   );
 };
 
-export default Managers;
+export default Worker;

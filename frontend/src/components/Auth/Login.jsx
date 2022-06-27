@@ -23,9 +23,12 @@ const Login = () => {
   const LoginUser = async () => {
     try {
       const res = await LoginUsers(user);
-      console.log(res.data)
+      const { token, AID, role } = res.data;
+      localStorage.setItem("jwtoken", token);
+      localStorage.setItem("user", JSON.stringify({AID,role}));
+      console.log(res.data);
       if (res.status === 200) {
-         navigate("/dashboard");
+        navigate("/dashboard");
       } else {
         throw Error();
       }
