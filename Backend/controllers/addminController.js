@@ -46,7 +46,7 @@ const CreateAdmin = async (req, res) => {
   }
 };
 
-// only admin login here.....
+// admin , manager and worker login here......
 const LoginAdmin = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -54,58 +54,64 @@ const LoginAdmin = async (req, res) => {
       return res.status(400).json({ error: "Please fil all info" });
     }
 
-    // from email checking admin or not using regex....
-    const adminOrNot =
-      email.match(/admin/g) ||
-      email.match(/manager/g) ||
-      email.match(/worker/g);
-    const role = adminOrNot[0];
-    if (role === "admin") {
+    // from email checking admin, mamager , worker or not using regex....
+    const adminOrNot = email.match(/admin/g);
+    const managerOrNot = email.match(/manager/g);
+    const workerOrNot = email.match(/worker/g);
+    if (!managerOrNot && !workerOrNot) {
+      const role = "admin";
       const user = `SELECT * FROM admin WHERE email = '${email}'`;
       await database.query(user, async (err, result) => {
         if (err) {
-          return console.log(err);
+          console.log(err);
+          return;
         } else {
-          console.log(result);
           if (result.length === 0) {
-            return res.json({ message: "User didn't find." });
+            return res.status(400).json({ message: "User didn't find." });
           }
           const { AID } = result[0];
+          const id = AID;
           const matchPassword = await bcrypt.compare(
             password,
             result[0].password
           );
-          console.log(matchPassword);
           if (matchPassword) {
             const token = jwt.sign({ userId: AID }, process.env.JWT_SECRET, {
               expiresIn: "7d",
             });
-            res.status(200).json({ token, AID, role });
+            res.status(200).json({ token, id, role });
           } else {
             return res.status(400).json({ error: "Invalid credentials" });
           }
         }
       });
     } else {
+      if (!managerOrNot) {
+        role = "worker";
+      } else {
+        role = "manager";
+      }
       const user = `SELECT * FROM employee WHERE email = '${email}'`;
       await database.query(user, async (err, result) => {
         if (err) {
-          return console.log(err);
+          console.log(err);
         } else {
           if (result.length === 0) {
-            return res.json({ message: "Employee didn't find." });
+            return res.status(400).json({ message: "Employee didn't find." });
           }
-          console.log(result);
-          const { EID } = result[0];
-          console.log(password);
-          console.log(result[0].password);
-          const matchPassword = bcrypt.compare(password, result[0].password);
-          console.log(matchPassword);
-          if (matchPassword) {
-            const token = jwt.sign({ userId: EID }, process.env.JWT_SECRET, {
-              expiresIn: "7d",
-            });
-            res.status(200).json({ token, EID, role });
+          else{
+            const { EID } = result[0];
+            const id = EID;
+            const matchPassword = await bcrypt.compare(password, result[0].password);
+            console.log(matchPassword)
+            if (matchPassword) {
+              const token = jwt.sign({ userId: EID }, process.env.JWT_SECRET, {
+                expiresIn: "7d",
+              });
+              res.status(200).json({ token, id, role });
+            }else{
+              res.status(400).json({error : "Invalid Credentials."})
+            }
           }
         }
       });

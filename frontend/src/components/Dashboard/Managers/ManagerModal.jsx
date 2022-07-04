@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Modal, TextField } from "@mui/material";
-import { createManagers } from "../../../Api/Api";
+import { createEmployee } from "../../../Api/Api";
 import { ToastContainer, toast } from "react-toastify";
 
 const style = {
@@ -59,7 +59,7 @@ const ManagerModal = ({ open, setOpen }) => {
         });
         return;
       }
-      await createManagers(user);
+      await createEmployee(user);
     } catch (error) {}
     window.location.reload();
   };

@@ -13,6 +13,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LogoutIcon from "@mui/icons-material/Logout";
 import WorkIcon from "@mui/icons-material/Work";
+import GroupsIcon from "@mui/icons-material/Groups";
+import FileOpenIcon from "@mui/icons-material/FileOpen";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isDrawerOpen, show, setShow }) => {
@@ -20,6 +22,7 @@ const Sidebar = ({ isDrawerOpen, show, setShow }) => {
   const logOut = () => {
     localStorage.removeItem("jwtoken", "userID", "userRole");
     localStorage.removeItem("user");
+    localStorage.removeItem("show");
     navigate("/login");
   };
   return (
@@ -100,15 +103,41 @@ const Sidebar = ({ isDrawerOpen, show, setShow }) => {
         </Box>
         <Box
           className={`hover:bg-gray-500 hover:rounded-xl ${
+            show === "teams" ? "bg-gray-500 rounded-xl" : "none"
+          }`}
+          onClick={() => setShow("teams")}
+        >
+          <ListItemButton sx={{ marginTop: ".5rem" }}>
+            <ListItemIcon>
+              <GroupsIcon className="text-[#fff]" />
+            </ListItemIcon>
+            <ListItemText primary="Teams" />
+          </ListItemButton>
+        </Box>
+        <Box
+          className={`hover:bg-gray-500 hover:rounded-xl ${
             show === "project" ? "bg-gray-500 rounded-xl" : "none"
           }`}
           onClick={() => setShow("project")}
         >
           <ListItemButton sx={{ marginTop: ".5rem" }}>
             <ListItemIcon>
-              <WorkIcon className="text-[#fff]" />
+              <FileOpenIcon className="text-[#fff]" />
             </ListItemIcon>
             <ListItemText primary="Projects" />
+          </ListItemButton>
+        </Box>
+        <Box
+          className={`hover:bg-gray-500 hover:rounded-xl ${
+            show === "works" ? "bg-gray-500 rounded-xl" : "none"
+          }`}
+          onClick={() => setShow("works")}
+        >
+          <ListItemButton sx={{ marginTop: ".5rem" }}>
+            <ListItemIcon>
+              <WorkIcon className="text-[#fff]" />
+            </ListItemIcon>
+            <ListItemText primary="Works" />
           </ListItemButton>
         </Box>
         <Box

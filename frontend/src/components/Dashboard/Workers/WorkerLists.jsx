@@ -2,22 +2,35 @@ import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
-import { getWorkers } from "../../../Api/Api";
+import { getWorkers, deleteEmployee } from "../../../Api/Api";
 
 const WorkerLists = () => {
   const [workers, setWorkers] = useState([]);
 
-  useEffect(() => {
-    const FetchData = async () => {
-      const res = await getWorkers();
-      setWorkers(res.data);
-      console.log(res.data);
-    };
+  const deleteEmp = async (id) => {
+    await deleteEmployee(id);
     FetchData();
-  }, []);
+  };
+
+  const FetchData = async () => {
+    const res = await getWorkers();
+    setWorkers(res.data);
+  };
+  useEffect(() => {
+    FetchData();
+  }, [workers]);
+
+  // useEffect(() => {
+  //   const FetchData = async () => {
+  //     const res = await getWorkers();
+  //     setWorkers(res.data);
+  //     console.log(res.data);
+  //   };
+  //   FetchData();
+  // }, []);
   return (
     <>
-      <div className="w-3/4 absolute top-[20%] left-[320px] rounded-lg">
+      <div className="w-3/4 md:absolute top-[20%] left-[320px] rounded-lg">
         <div className="flex justify-between items-center"></div>
         <div className="overflow-x-auto">
           <table className="w-full text-md text-left">
@@ -81,7 +94,7 @@ const WorkerLists = () => {
                       <IconButton>
                         <EditIcon />
                       </IconButton>
-                      <IconButton>
+                      <IconButton onClick={() => deleteEmp(work.EID)}>
                         <DeleteIcon />
                       </IconButton>
                     </td>

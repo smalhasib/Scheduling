@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
-import { getManagers } from "../../../Api/Api";
+import { getManagers, deleteEmployee } from "../../../Api/Api";
 
 const ManagerLists = () => {
   const [managers, setManagers] = useState([]);
 
+  const deleteEmp = async (id) => {
+    await deleteEmployee(id);
+    FetchData();
+  };
+
+  const FetchData = async () => {
+    const res = await getManagers();
+    setManagers(res.data);
+  };
   useEffect(() => {
-    const FetchData = async () => {
-      const res = await getManagers();
-      setManagers(res.data);
-      console.log(res.data);
-    };
     FetchData();
   }, []);
   return (
@@ -81,7 +85,7 @@ const ManagerLists = () => {
                       <IconButton>
                         <EditIcon />
                       </IconButton>
-                      <IconButton>
+                      <IconButton onClick={() => deleteEmp(man.EID)}>
                         <DeleteIcon />
                       </IconButton>
                     </td>

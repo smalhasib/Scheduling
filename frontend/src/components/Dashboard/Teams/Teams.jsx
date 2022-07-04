@@ -1,10 +1,10 @@
 import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
-import PorjectLists from "./PorjectLists";
-import ProjectModal from "./ProjectModal";
-const Project = () => {
-  const [open, setOpen] = useState(false);
+import TeamsModal from "./TeamsModal";
+import TeamLists from "./TeamLists";
 
+const Teams = () => {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Box
@@ -23,15 +23,15 @@ const Project = () => {
           }}
           variant="contained"
           className="relative left-5 top-20 md:left-80 md:top-24"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpen(!open)}
         >
-          Add project
+          Add teams
         </Button>
       </Box>
-      <ProjectModal open={open} setOpen={setOpen} />
-      <PorjectLists />
+      <TeamsModal open={open} setOpen={setOpen} />
+      <TeamLists />
     </>
   );
 };
 
-export default Project;
+export default Teams;

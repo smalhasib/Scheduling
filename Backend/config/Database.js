@@ -33,5 +33,10 @@ const employee =
 database.query(employee, function (err, result) {
   if (err) return console.log(err);
 });
+const team =
+  "CREATE TABLE if not exists team (MID VARCHAR(255),WID VARCHAR(255))";
+database.query(team, function (err, result) {
+  if (err) return console.log(err);
+});
 
 module.exports = database;

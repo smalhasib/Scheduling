@@ -23,14 +23,15 @@ const Login = () => {
   const LoginUser = async () => {
     try {
       const res = await LoginUsers(user);
-      const { token, AID, role } = res.data;
+      console.log(res.data);
+      const { token, id, role } = res.data;
       localStorage.setItem("jwtoken", token);
-      localStorage.setItem("user", JSON.stringify({AID,role}));
+      localStorage.setItem("user", JSON.stringify({ id, role }));
       console.log(res.data);
       if (res.status === 200) {
         navigate("/dashboard");
       } else {
-        throw Error();
+        navigate("/login");
       }
     } catch (error) {
       toast.error("Invalid Credentials", {
