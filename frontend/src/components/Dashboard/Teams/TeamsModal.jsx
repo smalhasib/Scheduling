@@ -23,6 +23,8 @@ const TeamsModal = ({ open, setOpen }) => {
   const addTeam = async () => {
     await CreateTeams({ workerId, managerId });
     setOpen(!open)
+    setWorkerId("")
+    setManagerId("")
   };
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const TeamsModal = ({ open, setOpen }) => {
                 {worker.length &&
                   worker.map((wor) => (
                     <MenuItem key={wor.EID} value={wor.EID}>
-                      {wor.EID}
+                      {wor.EID} - {wor.name}
                     </MenuItem>
                   ))}
               </TextField>
@@ -90,7 +92,7 @@ const TeamsModal = ({ open, setOpen }) => {
                 {manager.length &&
                   manager.map((man) => (
                     <MenuItem key={man.EID} value={man.EID}>
-                      {man.EID}
+                      {man.EID} - {man.name}
                     </MenuItem>
                   ))}
               </TextField>

@@ -4,6 +4,7 @@ const {
   AddManagers,
   GetAllManagers,
   GetAllWorkers,
+  GetSingleEmployee,
   DeleteEmployee,
 } = require("../controllers/employeeController");
 
@@ -11,6 +12,7 @@ const {
 router.post("/addemployee", AddManagers);
 router.get("/allmanagers", GetAllManagers);
 router.get("/allworkers", GetAllWorkers);
+router.get("/singlemployee/:id", GetSingleEmployee);
 router.delete("/delemployee/:id", DeleteEmployee);
 
 module.exports = router;

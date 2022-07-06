@@ -14,10 +14,16 @@ import {
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import Sidebar from "../Sidebar/Sidebar";
 import SearchIcon from "@mui/icons-material/Search";
+import { getAdmin, getSingleEmployee } from "../../../Api/Api";
 
 const Header = () => {
   const settings = ["Profile", "Account", "Dashboard", "Logout"];
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [admin, setAdmin] = useState({});
+  const [employee, setEmployee] = useState({});
+
+  const id = JSON.parse(localStorage.getItem("user")).id;
+  const role = JSON.parse(localStorage.getItem("user")).role;
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -25,6 +31,21 @@ const Header = () => {
     setAnchorElUser(null);
   };
   const [isDrawerOpen, setisDrawerOpen] = useState(false);
+  useState(() => {
+    const fetchData = async () => {
+      console.log(id);
+      console.log(role);
+      if (role === "admin") {
+        const res = await getAdmin(id);
+        console.log(res.data.data);
+        setAdmin(res.data.data);
+      } else {
+        const res = await getSingleEmployee(id);
+        setEmployee(res.data.data);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <AppBar
@@ -56,7 +77,12 @@ const Header = () => {
             />
           </Box>
           <Box
-            sx={{height: "auto", width: "50%", bgColor: "#eeee",fontSize:"1rem"}}
+            sx={{
+              height: "auto",
+              width: "50%",
+              bgColor: "#eeee",
+              fontSize: "1rem",
+            }}
             className="flex items-center justify-center border border-gray-300 px-2 rounded-xl"
           >
             <SearchIcon className=" text-gray-400" />
@@ -65,7 +91,21 @@ const Header = () => {
               className=" p-1 w-full rounded-lg border-none outline-none text-black px-2 "
             />
           </Box>
-          <Box>
+
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography
+              onClick={handleOpenUserMenu}
+              sx={{
+                fontSize: "1rem",
+                color: "#fff",
+                bgcolor: "#4e1ab6",
+                padding: ".2rem .7rem",
+                cursor: "pointer",
+                borderRadius: "20px",
+              }}
+            >
+              {role === "admin" ? admin.name : employee.name}
+            </Typography>
             <Tooltip title="Open Setting">
               <IconButton onClick={handleOpenUserMenu}>
                 <Avatar alt="Gojo" sx={{ height: "35px", width: "35px" }} />

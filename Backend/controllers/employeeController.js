@@ -69,7 +69,23 @@ const GetAllWorkers = (req, res) => {
 };
 
 // Getting single employee from db..
-const GetSingleEmployee = (req, res) => {};
+const GetSingleEmployee = async(req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  try {
+    const singlemployee = `SELECT * FROM employee WHERE EID = '${id}'`;
+    await database.query(singlemployee, (err, result) => {
+      if (err) {
+        res.status(400).json({ error: err });
+      } else {
+        const data = result[0]
+        res.status(200).json({ data });
+      }
+    });
+  } catch (error) {
+    return res.status(400).json({ error: "Something wrong." });
+  }
+};
 
 //Delete employee fron db....
 const DeleteEmployee = (req, res) => {
@@ -95,5 +111,6 @@ module.exports = {
   AddManagers,
   GetAllManagers,
   GetAllWorkers,
+  GetSingleEmployee,
   DeleteEmployee,
 };

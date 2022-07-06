@@ -79,7 +79,7 @@ const LoginAdmin = async (req, res) => {
             const token = jwt.sign({ userId: AID }, process.env.JWT_SECRET, {
               expiresIn: "7d",
             });
-            res.status(200).json({ token, id, role });
+            res.status(200).json({ token, id, role, });
           } else {
             return res.status(400).json({ error: "Invalid credentials" });
           }
@@ -98,19 +98,22 @@ const LoginAdmin = async (req, res) => {
         } else {
           if (result.length === 0) {
             return res.status(400).json({ message: "Employee didn't find." });
-          }
-          else{
+          } else {
+            const userData = result[0]
             const { EID } = result[0];
             const id = EID;
-            const matchPassword = await bcrypt.compare(password, result[0].password);
-            console.log(matchPassword)
+            const matchPassword = await bcrypt.compare(
+              password,
+              result[0].password
+            );
+            console.log(matchPassword);
             if (matchPassword) {
               const token = jwt.sign({ userId: EID }, process.env.JWT_SECRET, {
                 expiresIn: "7d",
               });
-              res.status(200).json({ token, id, role });
-            }else{
-              res.status(400).json({error : "Invalid Credentials."})
+              res.status(200).json({ token, id, role, userData });
+            } else {
+              res.status(400).json({ error: "Invalid Credentials." });
             }
           }
         }
@@ -121,4 +124,22 @@ const LoginAdmin = async (req, res) => {
     res.status(400).json({ error: "Somethig is wrong.." });
   }
 };
-module.exports = { CreateAdmin, LoginAdmin };
+
+const GetAdmin = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  try {
+    const findAdmin = `SELECT * FROM admin WHERE AID = '${id}'`;
+    await database.query(findAdmin, (err, result) => {
+      if (err) {
+        res.status(400).json({ error: err });
+      } else {
+        const data = result[0]
+        res.status(200).json({ data });
+      }
+    });
+  } catch (error) {
+    return res.status(400).json({ error: "Something wrong." });
+  }
+};
+module.exports = { CreateAdmin, LoginAdmin, GetAdmin };
