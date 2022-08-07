@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React ,{useState} from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
-import { getWorkers, deleteEmployee } from "../../../Api/Api";
+import { deleteEmployee } from "../../../Api/Api";
+import Pagination from "../../Pagination";
 
-const WorkerLists = () => {
-  const [workers, setWorkers] = useState([]);
+const WorkerLists = ({workers, FetchData}) => {
+    const [currentPage, setCurrentpage] = useState(1);
+    const [profPerPage] = useState(6);
+  // Get current posts
+  const indexOfLastProf = currentPage * profPerPage;
+  const indexOfFirstProf = indexOfLastProf - profPerPage;
+  const currentProf = workers.slice(indexOfFirstProf, indexOfLastProf);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentpage(pageNumber);
 
   const deleteEmp = async (id) => {
     await deleteEmployee(id);
     FetchData();
   };
 
-  const FetchData = async () => {
-    const res = await getWorkers();
-    setWorkers(res.data);
-  };
-  useEffect(() => {
-    FetchData();
-  }, [workers]);
-
-  // useEffect(() => {
-  //   const FetchData = async () => {
-  //     const res = await getWorkers();
-  //     setWorkers(res.data);
-  //     console.log(res.data);
-  //   };
-  //   FetchData();
-  // }, []);
   return (
     <>
       <div className="w-3/4 md:absolute top-[20%] left-[320px] rounded-lg">
@@ -63,7 +56,7 @@ const WorkerLists = () => {
               </tr>
             </thead>
             <tbody>
-              {workers.map((work) => {
+              {currentProf.map((work) => {
                 return (
                   <tr
                     className={`bg-white  border-b hover:bg-gray-50`}
@@ -104,6 +97,11 @@ const WorkerLists = () => {
             </tbody>
           </table>
         </div>
+        <Pagination
+          profPerPage={profPerPage}
+          totalProf={workers.length}
+          paginate={paginate}
+        />
       </div>
     </>
   );

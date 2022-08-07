@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { GetAllProject, DeleteSingleProject } from "../../../Api/Api";
+import React from "react";
+import { DeleteSingleProject } from "../../../Api/Api";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 
-const PorjectLists = () => {
-  const [projectLists, setProjectLists] = useState([]);
-
-  const getAllProject = async () => {
-    const res = await GetAllProject();
-    setProjectLists(res.data);
-  };
+const PorjectLists = ({ getAllProject,projectLists }) => {
   const DeleteProject = async (id) => {
     await DeleteSingleProject(id);
     getAllProject();
   };
-  useEffect(() => {
-    getAllProject();
-  }, []);
+
   return (
     <>
       <div className="w-3/4 absolute top-[20%] left-[320px] rounded-lg">

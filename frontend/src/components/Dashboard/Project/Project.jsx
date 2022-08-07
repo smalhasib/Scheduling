@@ -1,10 +1,19 @@
 import { Box, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PorjectLists from "./PorjectLists";
 import ProjectModal from "./ProjectModal";
+import { GetAllProject } from "../../../Api/Api";
 const Project = () => {
   const [open, setOpen] = useState(false);
+    const [projectLists, setProjectLists] = useState([]);
 
+      const getAllProject = async () => {
+        const res = await GetAllProject();
+        setProjectLists(res.data);
+      };
+        useEffect(() => {
+          getAllProject();
+        }, []);
   return (
     <>
       <Box
@@ -28,8 +37,8 @@ const Project = () => {
           Add project
         </Button>
       </Box>
-      <ProjectModal open={open} setOpen={setOpen} />
-      <PorjectLists />
+      <ProjectModal open={open} setOpen={setOpen} getAllProject={getAllProject}/>
+      <PorjectLists getAllProject={getAllProject} projectLists={projectLists} />
     </>
   );
 };

@@ -14,7 +14,7 @@ const style = {
   borderRadius: "1rem",
   p: 4,
 };
-const ManagerModal = ({ open, setOpen }) => {
+const ManagerModal = ({ open, setOpen, FetchData }) => {
   const [generateManager, setGenerateManger] = useState({});
 
   const [user, setUser] = useState({
@@ -33,7 +33,7 @@ const ManagerModal = ({ open, setOpen }) => {
   // generating email and password for manager...
   const GenerateEmailPass = () => {
     if (user.name.length > 0) {
-      const first = user.name.split(" ")[0];
+      const first = user.name.split(" ")[0].toLowerCase();
       const randomNum = Math.floor(Math.random() * 1000 + 10);
       const managerEmail = first.concat(randomNum + "@manager.com");
       const genetatePassword = `${Math.floor(Math.random() * 100000 + 1000)}`;
@@ -60,9 +60,14 @@ const ManagerModal = ({ open, setOpen }) => {
         return;
       }
       await createEmployee(user);
-    } catch (error) {}
-    window.location.reload();
+      FetchData();
+      setOpen(false);
+      setGenerateManger("");
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <>
       <Modal

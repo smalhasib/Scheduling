@@ -2,9 +2,19 @@ import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import WorkerLists from "./WorkerLists";
 import WrokersModal from "./WrokersModal";
+import { getWorkers } from "../../../Api/Api";
+import { useEffect } from "react";
 
 const Worker = () => {
   const [open, setOpen] = useState(false);
+    const [workers, setWorkers] = useState([]);
+     const FetchData = async () => {
+       const res = await getWorkers();
+       setWorkers(res.data);
+     };
+     useEffect(() => {
+       FetchData();
+     }, []);
   return (
     <>
       <Box
@@ -28,8 +38,8 @@ const Worker = () => {
           Add worker
         </Button>
       </Box>
-      <WrokersModal setOpen={setOpen} open={open} />
-      <WorkerLists/>
+      <WrokersModal setOpen={setOpen} open={open} FetchData={FetchData}/>
+      <WorkerLists workers = {workers} FetchData={FetchData}/>
     </>
   );
 };

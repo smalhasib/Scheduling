@@ -1,11 +1,13 @@
 import { Box, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ManagerLists from "./ManagerLists";
 import ManagerModal from "./ManagerModal";
 import { ToastContainer, toast } from "react-toastify";
+import { getManagers} from "../../../Api/Api";
 
 const Managers = () => {
   const [open, setOpen] = useState(false);
+    const [managers, setManagers] = useState([]);
   const checkAdmin = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user.role !== "admin") {
@@ -22,6 +24,14 @@ const Managers = () => {
       setOpen(!open);
     }
   };
+
+    const FetchData = async () => {
+      const res = await getManagers();
+      setManagers(res.data);
+    };
+    useEffect(() => {
+      FetchData();
+    }, []);
   return (
     <>
       <Box
@@ -45,8 +55,8 @@ const Managers = () => {
           Add manager
         </Button>
       </Box>
-      <ManagerModal setOpen={setOpen} open={open} />
-      <ManagerLists />
+      <ManagerModal setOpen={setOpen} open={open} FetchData={FetchData} />
+      <ManagerLists FetchData={FetchData} managers={managers}/>
       <ToastContainer
         position="top-center"
         autoClose={2000}

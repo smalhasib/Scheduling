@@ -14,7 +14,7 @@ const style = {
   borderRadius: "1rem",
   p: 4,
 };
-const WrokersModal = ({ open, setOpen }) => {
+const WrokersModal = ({ open, setOpen, FetchData }) => {
   const [generateWorker, setGenerateWorker] = useState({});
 
   const [user, setUser] = useState({
@@ -61,11 +61,13 @@ const WrokersModal = ({ open, setOpen }) => {
         return;
       }
       await createEmployee(user);
-    
+      FetchData();
+      setGenerateWorker("");
+      setUser("");
+      setOpen(false)
     } catch (error) {
       console.log(error);
     }
-      window.location.reload();
   };
   return (
     <>

@@ -13,7 +13,7 @@ const style = {
   p: 4,
 };
 
-const ProjectModal = ({ open, setOpen }) => {
+const ProjectModal = ({ open, setOpen, getAllProject }) => {
   const [project, setProject] = useState({
     name: "",
     summary: "",
@@ -26,8 +26,15 @@ const ProjectModal = ({ open, setOpen }) => {
     });
   };
   const AddProject = async () => {
-    await CreateProject(project);
-    window.location.reload();
+    try {
+      await CreateProject(project);
+      setProject("")
+      getAllProject();
+      setOpen(false);
+
+    } catch (error) {
+      console.log(error)
+    }
   };
   return (
     <>

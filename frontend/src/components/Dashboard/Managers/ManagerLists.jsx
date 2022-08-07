@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
-import { getManagers, deleteEmployee } from "../../../Api/Api";
+import { deleteEmployee } from "../../../Api/Api";
+import Pagination from "../../Pagination";
 
-const ManagerLists = () => {
-  const [managers, setManagers] = useState([]);
+const ManagerLists = ({ FetchData, managers }) => {
+  const [currentPage, setCurrentpage] = useState(1);
+  const [profPerPage] = useState(6);
+
+  // Get current posts
+  const indexOfLastProf = currentPage * profPerPage;
+  const indexOfFirstProf = indexOfLastProf - profPerPage;
+  const currentProf = managers.slice(indexOfFirstProf, indexOfLastProf);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentpage(pageNumber);
 
   const deleteEmp = async (id) => {
     await deleteEmployee(id);
     FetchData();
   };
 
-  const FetchData = async () => {
-    const res = await getManagers();
-    setManagers(res.data);
-  };
-  useEffect(() => {
-    FetchData();
-  }, []);
   return (
     <>
       <div className="w-3/4 absolute top-[20%] left-[320px] rounded-lg">
@@ -54,7 +57,7 @@ const ManagerLists = () => {
               </tr>
             </thead>
             <tbody>
-              {managers.map((man) => {
+              {currentProf.map((man) => {
                 return (
                   <tr
                     className={`bg-white  border-b hover:bg-gray-50`}
@@ -95,6 +98,11 @@ const ManagerLists = () => {
             </tbody>
           </table>
         </div>
+        <Pagination
+          profPerPage={profPerPage}
+          totalProf={managers.length}
+          paginate={paginate}
+        />
       </div>
     </>
   );
