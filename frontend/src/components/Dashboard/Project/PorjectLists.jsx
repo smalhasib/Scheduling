@@ -22,6 +22,9 @@ const PorjectLists = ({ getAllProject,projectLists }) => {
                   PID
                 </th>
                 <th scope="col" className="px-2 py-3">
+                  MID
+                </th>
+                <th scope="col" className="px-2 py-3">
                   Name
                 </th>
                 <th scope="col" className="px-2 py-3">
@@ -44,6 +47,9 @@ const PorjectLists = ({ getAllProject,projectLists }) => {
                   >
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                       {project.PID}
+                    </td>
+                    <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
+                      {project.MID}
                     </td>
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                       {project.name}

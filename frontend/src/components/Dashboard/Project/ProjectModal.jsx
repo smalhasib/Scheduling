@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Box, Button, Modal, TextField } from "@mui/material";
-import { CreateProject } from "../../../Api/Api";
+import React, { useEffect, useState } from "react";
+import { Box, Button, MenuItem, Modal, TextField } from "@mui/material";
+import { getManagers, CreateProject } from "../../../Api/Api";
 const style = {
   position: "absolute",
   top: "50%",
@@ -14,10 +14,12 @@ const style = {
 };
 
 const ProjectModal = ({ open, setOpen, getAllProject }) => {
+  const [manager, setManager] = useState([]);
   const [project, setProject] = useState({
     name: "",
     summary: "",
     status: "",
+    MID: ""
   });
   const onValueChange = (e) => {
     setProject({
@@ -28,14 +30,22 @@ const ProjectModal = ({ open, setOpen, getAllProject }) => {
   const AddProject = async () => {
     try {
       await CreateProject(project);
-      setProject("")
+      setProject("");
       getAllProject();
       setOpen(false);
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getManagers();
+      setManager(res.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <Modal
@@ -64,6 +74,25 @@ const ProjectModal = ({ open, setOpen, getAllProject }) => {
                 flexDirection: "column",
               }}
             >
+              <TextField
+                label="Select manager ID"
+                size="small"
+                variant="outlined"
+                select
+                value={project.MID}
+                onChange={(e) => setProject({
+                  ...project,
+                  MID: e.target.value,
+                })}
+                sx={{ width: "100%", marginTop: "1.5rem" }}
+              >
+                {manager.length &&
+                  manager.map((man) => (
+                    <MenuItem key={man.EID} value={man.EID}>
+                      {man.EID} - {man.name}
+                    </MenuItem>
+                  ))}
+              </TextField>
               <TextField
                 label="Name"
                 type="text"

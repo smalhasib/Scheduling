@@ -5,15 +5,15 @@ const { v4: uuidv4 } = require("uuid");
 // add projects....
 const CreateProject = async (req, res) => {
   console.log(req.body)
-  const { name, summary, status } = req.body;
+  const { name, summary, status, MID } = req.body;
   try {
-    if (!name || !summary || !status) {
+    if (!name || !summary || !status || !MID) {
       return res.status(400).json("Please fill all fields.");
     }
-    const sql = `INSERT INTO project (PID,name, summary, status) VALUES('${uuidv4()
+    const sql = `INSERT INTO project (PID, MID, name, summary, status) VALUES('${uuidv4()
       .toString()
       .replace("-", "")
-      .substring(0, 8)}','${name}', '${summary}', '${status}')`;
+      .substring(0, 8)}', '${MID}', '${name}', '${summary}', '${status}')`;
     await database.query(sql, (err, result) => {
       if (err) {
         return console.log(err);

@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const database = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "shanto78@",
+  password: "Jinxed718",
   database: "Schedule",
 });
 database.connect((err) => {
@@ -14,7 +14,7 @@ database.connect((err) => {
   }
 });
 const project =
-  "CREATE TABLE if not exists project (PID VARCHAR(255) PRIMARY KEY,name VARCHAR(255), summary VARCHAR(255), status VARCHAR(255))";
+  "CREATE TABLE if not exists project (PID VARCHAR(255) PRIMARY KEY, MID VARCHAR(255),name VARCHAR(255), summary VARCHAR(255), status VARCHAR(255))";
 database.query(project, function (err, result) {
   if (err) return console.log(err);
 });

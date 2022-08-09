@@ -66,3 +66,9 @@ export const GetTeams = async()=>{
   const res = await API.get("/team/geteam");
   return res;
 }
+
+// Works..
+export const GetAllWork = async () => {
+  const res = await API.get("/work/getwork");
+  return res;
+};
