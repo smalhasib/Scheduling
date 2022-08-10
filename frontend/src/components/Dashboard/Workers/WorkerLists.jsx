@@ -20,7 +20,7 @@ const WorkerLists = ({workers, FetchData}) => {
     await deleteEmployee(id);
     FetchData();
   };
-
+ const role = JSON.parse(localStorage.getItem("user")).role;
   return (
     <>
       <div className="w-3/4 md:absolute top-[20%] left-[320px] rounded-lg">
@@ -50,9 +50,11 @@ const WorkerLists = ({workers, FetchData}) => {
                 <th scope="col" className="px-2 py-3">
                   Email
                 </th>
-                <th scope="col" className="px-2 py-3">
-                  Actions
-                </th>
+                {role === "admin" && (
+                  <th scope="col" className="px-2 py-3">
+                    Actions
+                  </th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -83,14 +85,16 @@ const WorkerLists = ({workers, FetchData}) => {
                     <td className="px-2 py-4 font-normal text-gray-700 whitespace-nowrap">
                       {work.email}
                     </td>
-                    <td className="px-2 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      <IconButton>
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton onClick={() => deleteEmp(work.EID)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </td>
+                    {role === "admin" && (
+                      <td className="px-2 py-4 font-normal text-gray-700 whitespace-nowrap">
+                        <IconButton>
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton onClick={() => deleteEmp(work.EID)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </td>
+                    )}
                   </tr>
                 );
               })}
