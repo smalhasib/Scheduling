@@ -20,6 +20,11 @@ export const createAdmin = async (data) => {
   const res = await API.post("/admin/createadmin", data);
   return res;
 };
+// update admin
+export const updateAdmin = async(data, id)=>{
+  const res = await API.put(`/admin/updateadmin/${id}`, data);
+  return res;
+}
 
 export const getAdmin = async(id)=>{
   const res = await API.get(`/admin/getadmin/${id}`);
@@ -57,6 +62,11 @@ export const getSingleEmployee = async (id) => {
   const res = await API.get(`/employee/singlemployee/${id}`);
   return res;
 };
+
+export const updateEmployee = async(data, id)=>{
+  const res = await API.put(`employee/updateemp/${id}`, data);
+  return res;
+}
 // Teams..
 export const CreateTeams = async(data)=>{
   const res = await API.post("/team/createteam", data);

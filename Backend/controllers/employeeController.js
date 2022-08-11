@@ -69,7 +69,7 @@ const GetAllWorkers = (req, res) => {
 };
 
 // Getting single employee from db..
-const GetSingleEmployee = async(req, res) => {
+const GetSingleEmployee = async (req, res) => {
   const id = req.params.id;
   console.log(id);
   try {
@@ -78,7 +78,7 @@ const GetSingleEmployee = async(req, res) => {
       if (err) {
         res.status(400).json({ error: err });
       } else {
-        const data = result[0]
+        const data = result[0];
         res.status(200).json({ data });
       }
     });
@@ -105,7 +105,27 @@ const DeleteEmployee = (req, res) => {
     res.status(400).json({ error: "Something wrong." });
   }
 };
-const UpdateEmployee = (req, res) => {};
+const UpdateEmployee = async (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+  const { name, age, NID, address, phone , password} = req.body;
+  const id = req.params.id;
+  const hashPassword = await bcrypt.hash(password, 12);
+  try {
+    const updateEmp = `UPDATE employee SET name="${name}", age="${age}", NID ="${NID}", address="${address}", phone="${phone}", password="${hashPassword}" WHERE EID ="${id}"`;
+    database.query(updateEmp, (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ message: "Employee updated failed." });
+      } else {
+        res.status(200).json({ message: "Employee updated successfully." });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: "Something wrong." });
+  }
+};
 
 module.exports = {
   AddManagers,
@@ -113,4 +133,5 @@ module.exports = {
   GetAllWorkers,
   GetSingleEmployee,
   DeleteEmployee,
+  UpdateEmployee,
 };
