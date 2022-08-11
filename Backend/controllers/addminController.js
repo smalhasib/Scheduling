@@ -79,7 +79,7 @@ const LoginAdmin = async (req, res) => {
             const token = jwt.sign({ userId: AID }, process.env.JWT_SECRET, {
               expiresIn: "7d",
             });
-            res.status(200).json({ token, id, role, });
+            res.status(200).json({ token, id, role });
           } else {
             return res.status(400).json({ error: "Invalid credentials" });
           }
@@ -99,7 +99,7 @@ const LoginAdmin = async (req, res) => {
           if (result.length === 0) {
             return res.status(400).json({ message: "Employee didn't find." });
           } else {
-            const userData = result[0]
+            const userData = result[0];
             const { EID } = result[0];
             const id = EID;
             const matchPassword = await bcrypt.compare(
@@ -134,7 +134,8 @@ const GetAdmin = async (req, res) => {
       if (err) {
         res.status(400).json({ error: err });
       } else {
-        const data = result[0]
+        const data = result[0];
+        console.log(data)
         res.status(200).json({ data });
       }
     });
@@ -142,4 +143,25 @@ const GetAdmin = async (req, res) => {
     return res.status(400).json({ error: "Something wrong." });
   }
 };
-module.exports = { CreateAdmin, LoginAdmin, GetAdmin };
+
+const UpdateAdmin = async (req, res) => {
+  console.log(req.body);
+  const { name, phone, address, pic } = req.body;
+  const id = req.params.id;
+  // const hashPassword = await bcrypt.hash(password, 12);
+  try {
+    const updateAdmin = `UPDATE admin SET name="${name}", avatar="${pic}" , address="${address}", phone="${phone}" WHERE AID ="${id}"`;
+    database.query(updateAdmin, (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ message: "Admin updated failed." });
+      } else {
+        res.status(200).json({ message: "Admin updated successfully." });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: "Something wrong." });
+  }
+};
+module.exports = { CreateAdmin, LoginAdmin, GetAdmin, UpdateAdmin };

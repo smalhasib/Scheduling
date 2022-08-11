@@ -6,6 +6,7 @@ const {
   GetAllWorkers,
   GetSingleEmployee,
   DeleteEmployee,
+  UpdateEmployee,
 } = require("../controllers/employeeController");
 
 // Employee routes..
@@ -14,5 +15,6 @@ router.get("/allmanagers", GetAllManagers);
 router.get("/allworkers", GetAllWorkers);
 router.get("/singlemployee/:id", GetSingleEmployee);
 router.delete("/delemployee/:id", DeleteEmployee);
+router.put("/updateemp/:id", UpdateEmployee);
 
 module.exports = router;

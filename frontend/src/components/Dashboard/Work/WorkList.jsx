@@ -20,9 +20,9 @@ const WorkLists = ({ workLists }) => {
                   <th scope="col" className="px-2 py-3">
                     MID
                   </th>
-                  <th scope="col" className="px-2 py-3">
+                  {/* <th scope="col" className="px-2 py-3">
                     WID
-                  </th>
+                  </th> */}
                   <th scope="col" className="px-2 py-3">
                     Name
                   </th>
@@ -50,9 +50,9 @@ const WorkLists = ({ workLists }) => {
                       <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                         {work.MID}
                       </td>
-                      <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
+                      {/* <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                         {work.WID}
-                      </td>
+                      </td> */}
                       <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                         {work.name}
                       </td>
