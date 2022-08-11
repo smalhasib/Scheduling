@@ -1,22 +1,55 @@
-import { Box } from '@mui/material';
-import React from 'react'
+import { Box, Button } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import ScheduleModal from "./ScheduleModal";
+import ScheduleList from "./ScheduleList";
+import { GetAllSchedule } from "../../../Api/Api";
 
 const Schedule = () => {
+  const [open, setOpen] = useState(false);
+  const [scheduleLists, setScheduleLists] = useState([]);
+
+  const getAllSchedule = async () => {
+    const res = await GetAllSchedule();
+    setScheduleLists(res.data);
+  };
+  useEffect(() => {
+    getAllSchedule();
+  }, []);
+
   return (
     <>
       <Box
         sx={{
           height: { xs: "auto", md: "100vh" },
           width: "100%",
-          display:"flex",
-          alignItems:"center",
-          justifyContent:"center"
         }}
       >
-        <h1 className='text-3xl font-bold'>Schedule page.</h1>
+        <Button
+          sx={{
+            bgcolor: "#4e1ab6",
+            textTransform: "capitalize",
+            "&:hover": {
+              bgcolor: "#5902EC",
+            },
+          }}
+          variant="contained"
+          className="relative left-5 top-20 md:left-80 md:top-24"
+          onClick={() => setOpen(true)}
+        >
+          Add Schedule
+        </Button>
       </Box>
+      <ScheduleModal
+        open={open}
+        setOpen={setOpen}
+        getAllSchedule={getAllSchedule}
+      />
+      <ScheduleList
+        getAllSchedule={getAllSchedule}
+        scheduleLists={scheduleLists}
+      />
     </>
   );
-}
+};
 
-export default Schedule
+export default Schedule;

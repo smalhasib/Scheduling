@@ -39,4 +39,11 @@ database.query(team, function (err, result) {
   if (err) return console.log(err);
 });
 
+const schedule =
+  "CREATE TABLE if not exists schedule (SID VARCHAR(255), MID VARCHAR(255), shift VARCHAR(255), date DATE, status VARCHAR(255))";
+database.query(schedule, function (err, result) {
+  if (err) return console.log(err);
+});
+
+
 module.exports = database;

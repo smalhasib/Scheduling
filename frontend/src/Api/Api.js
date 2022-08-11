@@ -72,3 +72,18 @@ export const GetAllWork = async () => {
   const res = await API.get("/work/getwork");
   return res;
 };
+
+// Schedule
+export const CreateSchedule = async(data) => {
+  const res = await API.post("/schedule/createschedule", data)
+  return res
+}
+
+export const GetAllSchedule = async () => {
+  const res = await API.get("/schedule/getschedule");
+  return res
+}
+
+export const DeleteSingleSchedule = async (id) => {
+  await API.delete(`/schedule/deleteschedule/${id}`);
+};
