@@ -1,12 +1,12 @@
 const database = require("../config/Database");
 
 const CreateTeam = async (req, res) => {
-  const { managerId, workerId } = req.body;
+  const { worker, manager } = req.body
   try {
-    if (!managerId || !workerId) {
+    if (!manager.Id || !worker.Id || !manager.Name || !worker.Name) {
       return res.status(400).json({ error: "Provide manager and worker ids." });
     }
-    const existID = `SELECT * FROM team WHERE WID = '${workerId}'`;
+    const existID = `SELECT * FROM team WHERE WID = '${worker.Id}'`;
     await database.query(existID, async (err, result) => {
       if (err) {
         return console.log(err);
@@ -16,7 +16,7 @@ const CreateTeam = async (req, res) => {
             .status(400)
             .json({ message: "Worker already in the team." });
         } else {
-          const sql = `INSERT INTO team (MID, WID) VALUES('${managerId}', '${workerId}')`;
+          const sql = `INSERT INTO team (MID, managerName, WID, workerName) VALUES('${manager.Id}', '${manager.Name}', '${worker.Id}', '${worker.Name}')`;
           await database.query(sql, (err, result) => {
             if (err) {
               return console.log(err);

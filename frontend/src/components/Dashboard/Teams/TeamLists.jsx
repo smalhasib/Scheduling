@@ -26,7 +26,13 @@ const TeamLists = () => {
                   MID
                 </th>
                 <th scope="col" className="px-2 py-3">
+                  Manager Name
+                </th>
+                <th scope="col" className="px-2 py-3">
                   WID
+                </th>
+                <th scope="col" className="px-2 py-3">
+                  Worker Name
                 </th>
                 <th scope="col" className="px-2 py-3">
                   Actions
@@ -44,7 +50,13 @@ const TeamLists = () => {
                       {team.MID}
                     </td>
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
+                      {team.managerName}
+                    </td>
+                    <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                       {team.WID}
+                    </td>
+                    <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
+                      {team.workerName}
                     </td>
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                       <IconButton>

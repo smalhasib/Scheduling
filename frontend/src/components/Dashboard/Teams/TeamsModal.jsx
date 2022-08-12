@@ -15,24 +15,30 @@ const style = {
 };
 
 const TeamsModal = ({ open, setOpen }) => {
-  const [workerId, setWorkerId] = useState("");
-  const [managerId, setManagerId] = useState("");
-  const [worker, setWorker] = useState([]);
-  const [manager, setManager] = useState([]);
+  const [worker, setWorker] = useState({
+    Id: "",
+    Name: ""
+  });
+  const [manager, setManager] = useState({
+    Id: "",
+    Name: ""
+  });
+  const [workers, setWorkers] = useState([]);
+  const [managers, setManagers] = useState([]);
 
   const addTeam = async () => {
-    await CreateTeams({ workerId, managerId });
+    await CreateTeams({ worker, manager });
     setOpen(!open)
-    setWorkerId("")
-    setManagerId("")
+    setWorker("")
+    setManager("")
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getManagers();
-      setManager(res.data);
+      setManagers(res.data);
       const res2 = await getWorkers();
-      setWorker(res2.data);
+      setWorkers(res2.data);
     };
     fetchData();
   }, []);
@@ -69,12 +75,15 @@ const TeamsModal = ({ open, setOpen }) => {
                 size="small"
                 variant="outlined"
                 select
-                value={workerId}
-                onChange={(e) => setWorkerId(e.target.value)}
+                value={worker.Id}
+                onChange={(e) => setWorker({
+                  Id: e.target.value,
+                  Name: workers.filter(element => element.EID === e.target.value)[0].name
+                })}
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               >
-                {worker.length &&
-                  worker.map((wor) => (
+                {workers.length &&
+                  workers.map((wor) => (
                     <MenuItem key={wor.EID} value={wor.EID}>
                       {wor.EID} - {wor.name}
                     </MenuItem>
@@ -85,12 +94,15 @@ const TeamsModal = ({ open, setOpen }) => {
                 size="small"
                 variant="outlined"
                 select
-                value={managerId}
-                onChange={(e) => setManagerId(e.target.value)}
+                value={manager.Id}
+                onChange={(e) => setManager({
+                  Id: e.target.value,
+                  Name: managers.filter(element => element.EID === e.target.value)[0].name
+                })}
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               >
-                {manager.length &&
-                  manager.map((man) => (
+                {managers.length &&
+                  managers.map((man) => (
                     <MenuItem key={man.EID} value={man.EID}>
                       {man.EID} - {man.name}
                     </MenuItem>
