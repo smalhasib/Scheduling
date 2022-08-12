@@ -15,6 +15,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import WorkIcon from "@mui/icons-material/Work";
 import GroupsIcon from "@mui/icons-material/Groups";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
+import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isDrawerOpen, show, setShow }) => {
@@ -138,6 +139,19 @@ const Sidebar = ({ isDrawerOpen, show, setShow }) => {
               <WorkIcon className="text-[#fff]" />
             </ListItemIcon>
             <ListItemText primary="Works" />
+          </ListItemButton>
+        </Box>
+        <Box
+          className={`hover:bg-gray-500 hover:rounded-xl ${
+            show === "shift" ? "bg-gray-500 rounded-xl" : "none"
+          }`}
+          onClick={() => setShow("shift")}
+        >
+          <ListItemButton sx={{ marginTop: ".5rem" }}>
+            <ListItemIcon>
+              <HourglassTopIcon className="text-[#fff]" />
+            </ListItemIcon>
+            <ListItemText primary="Shift" />
           </ListItemButton>
         </Box>
         <Box

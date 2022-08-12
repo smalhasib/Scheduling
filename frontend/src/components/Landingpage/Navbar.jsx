@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [state, setState] = useState(false);
   const navRef = useRef();
-
+  const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     const body = document.body;
 
@@ -95,12 +95,21 @@ const Navbar = () => {
                 style={{ fontSize: "1.1rem" }}
                 className=" font-bold mt-4 lg:mt-0"
               >
-                <Link
-                  to="/login"
-                  className="py-3 px-4 text-center border text-black hover:text-indigo-600 rounded-md block lg:inline lg:border-0"
-                >
-                  Login
-                </Link>
+                {user ? (
+                  <Link
+                    to="/login"
+                    className="py-3 px-4 text-center border text-black hover:text-indigo-600 rounded-md block lg:inline lg:border-0"
+                  >
+                    Logout
+                  </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="py-3 px-4 text-center border text-black hover:text-indigo-600 rounded-md block lg:inline lg:border-0"
+                  >
+                    Login
+                  </Link>
+                )}
               </li>
               <li className="mt-8 font-bold lg:mt-0">
                 <Link

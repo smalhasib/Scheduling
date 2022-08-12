@@ -88,6 +88,15 @@ export const CreateSchedule = async(data) => {
   const res = await API.post("/schedule/createschedule", data)
   return res
 }
+export const GetEmployeeSchedule = async ()=>{
+   const res = await API.get("/schedule/employeeschedule");
+   return res;
+}
+
+export const GetManagerSchedule = async()=>{
+ const res = await API.get("/schedule/managerschedule");
+ return res;
+}
 
 export const GetAllSchedule = async () => {
   const res = await API.get("/schedule/getschedule");
@@ -97,3 +106,13 @@ export const GetAllSchedule = async () => {
 export const DeleteSingleSchedule = async (id) => {
   await API.delete(`/schedule/deleteschedule/${id}`);
 };
+
+// Shift functions...
+export const addShift = async(data)=>{
+  const res = await API.post("/shift/addshift", data);
+  return res;
+}
+export const getShift = async()=>{
+  const res = await API.get("/shift/getshift"); 
+  return res;
+}

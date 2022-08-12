@@ -10,6 +10,7 @@ const employeeRoute = require("./routes/employeeRoute");
 const teamRoute = require("./routes/teamRoute")
 const workRoute = require("./routes/workRoute")
 const scheduleRoute = require("./routes/scheduleRoute")
+const shiftRoute = require("./routes/shiftRoute")
 
 dotenv.config();
 app.use(express.json());
@@ -27,6 +28,7 @@ app.use("/employee", employeeRoute);
 app.use("/team", teamRoute)
 app.use("/work", workRoute)
 app.use("/schedule", scheduleRoute)
+app.use("/shift",shiftRoute)
 
 app.listen(process.env.PORT, () => {
   console.log(
