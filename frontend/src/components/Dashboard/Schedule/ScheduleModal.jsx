@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, MenuItem, Modal, TextField } from "@mui/material";
-import { CreateSchedule, getManagers } from "../../../Api/Api";
+import { CreateSchedule, getManagers, getShift } from "../../../Api/Api";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -18,19 +18,15 @@ const style = {
 
 const ScheduleModal = ({ open, setOpen, getAllSchedule }) => {
   const [manager, setManager] = useState([]);
+  const [shifts, setShifts] = useState([]);
   const [schedule, setSchedule] = useState({
     shift: "",
     date: null,
-    status: "",
     managerID: "",
   });
 
-  const shifts = ["Shift 1", "Shift 2", "Shift 3"];
-  const statuses = ["Pending", "Working"]
 
   const AddSchedule = async() => {
-    console.log(schedule)
-    // console.log(schedule.date.toISOString().slice(0, 19).replace('T', ' '))
     try {
         await CreateSchedule(schedule);
         setSchedule("")
@@ -44,7 +40,11 @@ const ScheduleModal = ({ open, setOpen, getAllSchedule }) => {
   useEffect(() => {
     const fetchData = async () => {
         const res = await getManagers();
+        const res2 = await getShift();
+        console.log(res.data)
+        console.log(res2.data)
         setManager(res.data)
+        setShifts(res2.data)
     };
     fetchData();
   }, [])
@@ -108,29 +108,34 @@ const ScheduleModal = ({ open, setOpen, getAllSchedule }) => {
                   setSchedule({
                     ...schedule,
                     shift: e.target.value,
+
                   })
                 }
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               >
                 {shifts.map((shift) => (
-                  <MenuItem key={shift.key} value={shift}>
-                    {shift}
+                  <MenuItem key={shift.key} value={shift.SID}>
+                    {shift.SID} - {shift.Shift_name} 
                   </MenuItem>
                 ))}
               </TextField>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Select Date"
-                  value={schedule.date}
-                  forma
-                  onChange={(e) => setSchedule({
-                    ...schedule,
-                    date: e.toISOString().slice(0, 19).replace('T', ' ')
-                  })}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
-              <TextField
+              <Box sx={{marginTop:"1.5rem", width:"100%"}}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label="Select Date"
+                    value={schedule.date}
+                    forma
+                    onChange={(e) =>
+                      setSchedule({
+                        ...schedule,
+                        date: e.toISOString().slice(0, 19).replace("T", " "),
+                      })
+                    }
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </Box>
+              {/* <TextField
                 label="Select status"
                 size="small"
                 variant="outlined"
@@ -149,25 +154,25 @@ const ScheduleModal = ({ open, setOpen, getAllSchedule }) => {
                     {status}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextField> */}
               <Button
-                    variant="contained"
-                    onClick={() => {
-                      AddSchedule();
-                      setOpen(false);
-                    }}
-                    sx={{
-                      width: "100%",
-                      marginTop: "1rem",
-                      bgcolor: "#4e1ab6",
-                      textTransform: "capitalize",
-                      "&:hover": {
-                        bgcolor: "#5902EC",
-                      },
-                    }}
-                  >
-                    Add
-                  </Button>
+                variant="contained"
+                onClick={() => {
+                  AddSchedule();
+                  setOpen(false);
+                }}
+                sx={{
+                  width: "100%",
+                  marginTop: "1rem",
+                  bgcolor: "#4e1ab6",
+                  textTransform: "capitalize",
+                  "&:hover": {
+                    bgcolor: "#5902EC",
+                  },
+                }}
+              >
+                Add
+              </Button>
             </Box>
           </Box>
         </Box>

@@ -8,6 +8,7 @@ import Managers from "../components/Dashboard/Managers/Managers";
 import Profile from "../components/Dashboard/Profile/Profile";
 import Project from "../components/Dashboard/Project/Project";
 import Schedule from "../components/Dashboard/Schedule/Schedule";
+import Shift from "../components/Dashboard/Shift/Shift";
 import Sidebar from "../components/Dashboard/Sidebar/Sidebar";
 import Teams from "../components/Dashboard/Teams/Teams";
 import Work from "../components/Dashboard/Work/Work";
@@ -41,6 +42,7 @@ const Dashboard = () => {
         {show === "worker" && <Worker />}
         {show === "teams" && <Teams />}
         {show === "profile" && <Profile />}
+        {show === "shift" && <Shift/>}
         {show === "schedule" && <Schedule />}
         {show === "works" && <Work />}
       </Box>

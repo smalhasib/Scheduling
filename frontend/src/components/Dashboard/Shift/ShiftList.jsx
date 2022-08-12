@@ -1,15 +1,9 @@
-import React from "react";
-import { DeleteSingleSchedule } from "../../../Api/Api";
+import React from 'react'
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
 
-const ScheduleLists = ({ getAllSchedule, scheduleLists }) => {
-  const DeleteSchedule = async (id) => {
-    await DeleteSingleSchedule(id);
-    getAllSchedule();
-  };
-
+const ShiftList = ({shift}) => {
   return (
     <>
       <div className="w-3/4 absolute top-[20%] left-[320px] rounded-lg">
@@ -19,53 +13,41 @@ const ScheduleLists = ({ getAllSchedule, scheduleLists }) => {
             <thead className="text-gray-600 text-lg bg-gray-400">
               <tr>
                 <th scope="col" className="px-2 py-3">
-                  SCID
-                </th>
-                <th scope="col" className="px-2 py-3">
                   SID
                 </th>
                 <th scope="col" className="px-2 py-3">
-                  MID
+                  Shift name
                 </th>
                 <th scope="col" className="px-2 py-3">
-                  Date
+                  Shift time
                 </th>
-
                 <th scope="col" className="px-2 py-3">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody>
-              {scheduleLists.map((schedule) => {
+              {shift.map((shi) => {
                 return (
                   <tr
                     className={`bg-white  border-b hover:bg-gray-50`}
-                    key={schedule.SID}
+                    key={shi.SID}
                   >
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      {schedule.SCID}
+                      {shi.SID}
                     </td>
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      {schedule.SID}
+                      {shi.Shift_name}
                     </td>
+
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      {schedule.MID}
+                      {shi.Shift_time}
                     </td>
-                    <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      {new Date(schedule.date).toLocaleDateString()}
-                    </td>
-                    {/* <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      {schedule.shift}
-                    </td>
-                    <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      {schedule.status}
-                    </td> */}
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                       <IconButton>
                         <EditIcon />
-                      </IconButton>
-                      <IconButton onClick={() => DeleteSchedule(schedule.PID)}>
+                      </IconButton> 
+                       <IconButton>
                         <DeleteIcon />
                       </IconButton>
                     </td>
@@ -78,6 +60,6 @@ const ScheduleLists = ({ getAllSchedule, scheduleLists }) => {
       </div>
     </>
   );
-};
+}
 
-export default ScheduleLists;
+export default ShiftList

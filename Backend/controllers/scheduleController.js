@@ -5,15 +5,16 @@ const { v4: uuidv4 } = require("uuid");
 // add schedule....
 const CreateSchedule = async (req, res) => {
   console.log(req.body)
-  const { shift, date, status, managerID } = req.body;
+
+  const { shift, date, managerID } = req.body;
   try {
-    if (!shift || !date || !status || !managerID) {
+    if (!shift || !date || !managerID) {
       return res.status(400).json("Please fill all fields.");
     }
-    const sql = `INSERT INTO schedule (SID, MID, shift, date, status) VALUES('${uuidv4()
+    const sql = `INSERT INTO schedules (SCID,SID, MID, date) VALUES('${uuidv4()
       .toString()
       .replace("-", "")
-      .substring(0, 8)}', '${managerID}', '${shift}', '${date}', '${status}')`;
+      .substring(0, 8)}', '${shift}', '${managerID}', '${date}')`;
     await database.query(sql, (err, result) => {
       if (err) {
         return console.log(err);
@@ -30,7 +31,7 @@ const CreateSchedule = async (req, res) => {
 // Get all schedules.....
 const GetSchedule = async (req, res) => {
   try {
-    const sql = "SELECT * FROM schedule";
+    const sql = "SELECT * FROM schedules";
     database.query(sql, (err, result) => {
       if (err) {
         return console.log(err);
@@ -49,7 +50,7 @@ const DeleteSchedule = async (req, res) => {
   const sid = req.params.id;
   console.log(sid)
   try {
-    const sql = `DELETE FROM schedule WHERE SID = '${sid}'`;
+    const sql = `DELETE FROM schedules WHERE SCID = '${sid}'`;
     database.query(sql, (err, result) => {
       if (err) {
         return console.log(err);

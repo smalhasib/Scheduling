@@ -10,6 +10,7 @@ const Schedule = () => {
 
   const getAllSchedule = async () => {
     const res = await GetAllSchedule();
+    console.log(res.data)
     setScheduleLists(res.data);
   };
   useEffect(() => {

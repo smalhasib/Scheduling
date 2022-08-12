@@ -142,6 +142,19 @@ const Sidebar = ({ isDrawerOpen, show, setShow }) => {
         </Box>
         <Box
           className={`hover:bg-gray-500 hover:rounded-xl ${
+            show === "shift" ? "bg-gray-500 rounded-xl" : "none"
+          }`}
+          onClick={() => setShow("shift")}
+        >
+          <ListItemButton sx={{ marginTop: ".5rem" }}>
+            <ListItemIcon>
+              <AccessTimeIcon className="text-[#fff]" />
+            </ListItemIcon>
+            <ListItemText primary="Shift" />
+          </ListItemButton>
+        </Box>
+        <Box
+          className={`hover:bg-gray-500 hover:rounded-xl ${
             show === "schedule" ? "bg-gray-500 rounded-xl" : "none"
           }`}
           onClick={() => setShow("schedule")}
