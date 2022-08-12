@@ -46,7 +46,7 @@ database.query(shift, function (err, result) {
 });
 
 const schedule =
-  "CREATE TABLE if not exists schedules (SCID VARCHAR(255), SID VARCHAR(255), MID VARCHAR(255), date DATE, status VARCHAR(255))";
+  "CREATE TABLE if not exists schedules (SCID VARCHAR(255), SID VARCHAR(255),Shift_time VARCHAR(255), MID VARCHAR(255), date DATE, status VARCHAR(255))";
 database.query(schedule, function (err, result) {
   if (err) return console.log(err);
 });

@@ -15,6 +15,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import WorkIcon from "@mui/icons-material/Work";
 import GroupsIcon from "@mui/icons-material/Groups";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
+import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isDrawerOpen, show, setShow }) => {
@@ -148,7 +149,7 @@ const Sidebar = ({ isDrawerOpen, show, setShow }) => {
         >
           <ListItemButton sx={{ marginTop: ".5rem" }}>
             <ListItemIcon>
-              <AccessTimeIcon className="text-[#fff]" />
+              <HourglassTopIcon className="text-[#fff]" />
             </ListItemIcon>
             <ListItemText primary="Shift" />
           </ListItemButton>

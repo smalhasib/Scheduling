@@ -22,32 +22,33 @@ const ScheduleModal = ({ open, setOpen, getAllSchedule }) => {
   const [schedule, setSchedule] = useState({
     shift: "",
     date: null,
+    time: "",
     managerID: "",
   });
 
-
-  const AddSchedule = async() => {
+  const AddSchedule = async () => {
+    console.log(schedule);
     try {
-        await CreateSchedule(schedule);
-        setSchedule("")
-        getAllSchedule();
-        setOpen(false);
+      await CreateSchedule(schedule);
+      setSchedule("");
+      getAllSchedule();
+      setOpen(false);
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-        const res = await getManagers();
-        const res2 = await getShift();
-        console.log(res.data)
-        console.log(res2.data)
-        setManager(res.data)
-        setShifts(res2.data)
+      const res = await getManagers();
+      const res2 = await getShift();
+      console.log(res.data);
+      console.log(res2.data);
+      setManager(res.data);
+      setShifts(res2.data);
     };
     fetchData();
-  }, [])
+  }, []);
 
   return (
     <>
@@ -108,18 +109,37 @@ const ScheduleModal = ({ open, setOpen, getAllSchedule }) => {
                   setSchedule({
                     ...schedule,
                     shift: e.target.value,
-
                   })
                 }
                 sx={{ width: "100%", marginTop: "1.5rem" }}
               >
                 {shifts.map((shift) => (
                   <MenuItem key={shift.key} value={shift.SID}>
-                    {shift.SID} - {shift.Shift_name} 
+                    {shift.Shift_name} - {shift.SID}
                   </MenuItem>
                 ))}
               </TextField>
-              <Box sx={{marginTop:"1.5rem", width:"100%"}}>
+              <TextField
+                label="Select time"
+                size="small"
+                variant="outlined"
+                select
+                value={schedule.time}
+                onChange={(e) =>
+                  setSchedule({
+                    ...schedule,
+                    time: e.target.value,
+                  })
+                }
+                sx={{ width: "100%", marginTop: "1.5rem" }}
+              >
+                {shifts.map((shift) => (
+                  <MenuItem key={shift.key} value={shift.Shift_time}>
+                    {shift.Shift_name} - {shift.Shift_time}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <Box sx={{ marginTop: "1.5rem", width: "100%" }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
                     label="Select Date"

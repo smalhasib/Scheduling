@@ -2,19 +2,32 @@ import { Box, Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import ScheduleModal from "./ScheduleModal";
 import ScheduleList from "./ScheduleList";
-import { GetAllSchedule } from "../../../Api/Api";
+import { GetAllSchedule, GetEmployeeSchedule, GetManagerSchedule } from "../../../Api/Api";
 
 const Schedule = () => {
   const [open, setOpen] = useState(false);
   const [scheduleLists, setScheduleLists] = useState([]);
+  const [employeeSchedule, setEmployeeSchedule] = useState([]);
+  const [managerSchedule, setManagerSchedule] = useState([]);
 
   const getAllSchedule = async () => {
     const res = await GetAllSchedule();
     console.log(res.data)
     setScheduleLists(res.data);
   };
+  const getEmployeeSchedule = async()=>{
+    const res = await GetEmployeeSchedule();
+    console.log(res.data)
+    setEmployeeSchedule(res.data)
+  }
+  const getManagerSchedule = async()=>{
+    const res = await GetManagerSchedule();
+    setManagerSchedule(res.data);
+  }
   useEffect(() => {
     getAllSchedule();
+    getEmployeeSchedule();
+    getManagerSchedule()
   }, []);
 
   return (
@@ -48,6 +61,8 @@ const Schedule = () => {
       <ScheduleList
         getAllSchedule={getAllSchedule}
         scheduleLists={scheduleLists}
+        employeeSchedule={employeeSchedule}
+        managerSchedule={managerSchedule}
       />
     </>
   );
