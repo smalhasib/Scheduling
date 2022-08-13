@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const database = require("./config/Database");
 const projectRoute = require("./routes/projectRoute");
-const wageRoute = require("./routes/wageRoute");
 const adminRoute = require("./routes/adminRoute");
 const employeeRoute = require("./routes/employeeRoute");
 const teamRoute = require("./routes/teamRoute")
@@ -22,7 +21,6 @@ app.use(
 );
 
 app.use("/project", projectRoute);
-app.use("/wage", wageRoute);
 app.use("/admin", adminRoute);
 app.use("/employee", employeeRoute);
 app.use("/team", teamRoute)

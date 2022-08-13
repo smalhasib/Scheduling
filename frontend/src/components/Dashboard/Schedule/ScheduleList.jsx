@@ -19,7 +19,7 @@ const ScheduleLists = ({
   return (
     <>
       <div className="w-3/4 absolute top-[20%] left-[320px] rounded-lg">
-        {role !== "admin"
+        {role === "admin"
           ?
             <>
               <div className="flex justify-between items-center"></div>

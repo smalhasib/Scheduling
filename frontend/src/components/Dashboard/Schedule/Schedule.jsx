@@ -24,6 +24,7 @@ const Schedule = () => {
     const res = await GetManagerSchedule();
     setManagerSchedule(res.data);
   }
+   const role = JSON.parse(localStorage.getItem("user")).role;
   useEffect(() => {
     getAllSchedule();
     getEmployeeSchedule();
@@ -38,20 +39,22 @@ const Schedule = () => {
           width: "100%",
         }}
       >
-        <Button
-          sx={{
-            bgcolor: "#4e1ab6",
-            textTransform: "capitalize",
-            "&:hover": {
-              bgcolor: "#5902EC",
-            },
-          }}
-          variant="contained"
-          className="relative left-5 top-20 md:left-80 md:top-24"
-          onClick={() => setOpen(true)}
-        >
-          Add Schedule
-        </Button>
+        {role === "admin" && (
+          <Button
+            sx={{
+              bgcolor: "#4e1ab6",
+              textTransform: "capitalize",
+              "&:hover": {
+                bgcolor: "#5902EC",
+              },
+            }}
+            variant="contained"
+            className="relative left-5 top-20 md:left-80 md:top-24"
+            onClick={() => setOpen(true)}
+          >
+            Add Schedule
+          </Button>
+        )}
       </Box>
       <ScheduleModal
         open={open}

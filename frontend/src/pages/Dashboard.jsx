@@ -29,7 +29,6 @@ const Dashboard = () => {
     <>
       <Box
         sx={{
-          height: "auto",
           width: "100%",
           bgcolor: "#F2F5F9",
         }}

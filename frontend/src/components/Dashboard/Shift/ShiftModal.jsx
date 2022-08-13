@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Modal, TextField } from "@mui/material";
-import {addShift} from "../../../Api/Api"
+import { addShift } from "../../../Api/Api";
 
 const style = {
   position: "absolute",
@@ -13,15 +13,15 @@ const style = {
   borderRadius: "1rem",
   p: 4,
 };
-const ShiftModal = ({ open, setOpen, FetchData }) => {
-    const [shiftName, setShiftName] = useState("")
-    const [shiftTime, setShiftTime] = useState("") 
+const ShiftModal = ({ open, setOpen, fetchData }) => {
+  const [shiftName, setShiftName] = useState("");
+  const [shiftTime, setShiftTime] = useState("");
 
-    const AddShift = async()=>{
-        const res = await addShift({shiftName, shiftTime})
-        console.log(res);
-    }
- 
+  const AddShift = async () => {
+    await addShift({ shiftName, shiftTime });
+    fetchData();
+  };
+
   return (
     <>
       <Modal

@@ -1,14 +1,14 @@
 import React from "react";
-import { DeleteSingleProject } from "../../../Api/Api";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
+// import { DeleteSingleProject } from "../../../Api/Api";
+// import EditIcon from "@mui/icons-material/Edit";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import { IconButton } from "@mui/material";
 
 const PorjectLists = ({ getAllProject,projectLists }) => {
-  const DeleteProject = async (id) => {
-    await DeleteSingleProject(id);
-    getAllProject();
-  };
+  // const DeleteProject = async (id) => {
+  //   await DeleteSingleProject(id);
+  //   getAllProject();
+  // };
 
   return (
     <>
@@ -22,9 +22,6 @@ const PorjectLists = ({ getAllProject,projectLists }) => {
                   PID
                 </th>
                 <th scope="col" className="px-2 py-3">
-                  MID
-                </th>
-                <th scope="col" className="px-2 py-3">
                   Name
                 </th>
                 <th scope="col" className="px-2 py-3">
@@ -32,9 +29,6 @@ const PorjectLists = ({ getAllProject,projectLists }) => {
                 </th>
                 <th scope="col" className="px-2 py-3">
                   Summary
-                </th>
-                <th scope="col" className="px-2 py-3">
-                  Actions
                 </th>
               </tr>
             </thead>
@@ -49,9 +43,6 @@ const PorjectLists = ({ getAllProject,projectLists }) => {
                       {project.PID}
                     </td>
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      {project.MID}
-                    </td>
-                    <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                       {project.name}
                     </td>
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
@@ -59,14 +50,6 @@ const PorjectLists = ({ getAllProject,projectLists }) => {
                     </td>
                     <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
                       {project.summary}
-                    </td>
-                    <td className="px-6 py-4 font-normal text-gray-700 whitespace-nowrap">
-                      <IconButton>
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton onClick={() => DeleteProject(project.PID)}>
-                        <DeleteIcon />
-                      </IconButton>
                     </td>
                   </tr>
                 );
